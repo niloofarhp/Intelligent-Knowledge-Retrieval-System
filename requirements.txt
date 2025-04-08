@@ -1,0 +1,7 @@
+langchain
+langchain-openai
+langchain-chroma
+openai
+gradio
+python-dotenv
+streamlit
