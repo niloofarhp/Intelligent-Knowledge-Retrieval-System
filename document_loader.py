@@ -1,6 +1,10 @@
 import glob, os
+import easyocr
 from langchain.document_loaders import DirectoryLoader, TextLoader, PyMuPDFLoader
+from langchain.docstore.document import Document 
 from langchain.text_splitter import CharacterTextSplitter
+from PIL import Image
+import numpy as np 
 
 def load_documents(base_path):
     documents = []
@@ -32,6 +36,27 @@ def load_documents(base_path):
                 doc.metadata["doc_type"] = doc_type
             documents.extend(docs)
     return documents
+
+def load_image_documents(images_path):
+    reader = easyocr.Reader(['en'])  # Adjust languages as needed
+    image_docs = []
+    img_files = glob.glob(os.path.join(images_path, "**/*.png"), recursive=True)
+    for img_f in img_files:
+        img = Image.open(img_f).convert("RGB")
+        img_np = np.array(img)
+        ocr_result = reader.readtext(img_np, detail=0)
+        extracted_text = " ".join(ocr_result)
+
+        doc = Document(
+            page_content=extracted_text,
+            metadata={
+                "source": img_f,
+                "type": "image"
+            }
+        )
+        image_docs.append(doc)
+
+    return image_docs
 
 def split_documents(documents, chunk_size=1000, chunk_overlap=200):
     splitter = CharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)

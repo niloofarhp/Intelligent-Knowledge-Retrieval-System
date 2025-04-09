@@ -4,7 +4,9 @@ from config import DB_NAME
 import os
 def create_vectorstore(docs, persist_directory=DB_NAME):
     embeddings = OpenAIEmbeddings()
-    return Chroma.from_documents(documents=docs, embedding=embeddings, persist_directory=persist_directory)
+    vector_store =  Chroma.from_documents(documents=docs, embedding=embeddings, persist_directory=persist_directory)
+    vector_store.persist()
+    return vector_store
 
 def load_vectorstore(persist_directory=DB_NAME):
     embeddings = OpenAIEmbeddings()
