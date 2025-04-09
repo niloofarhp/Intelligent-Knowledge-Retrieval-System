@@ -1,6 +1,6 @@
 # Multimodal Content Retriever
 
-A powerful and extensible Conversational AI assistant for querying and summarizing your documents. Built using LangChain, OpenAI's GPT-4, and Streamlit, this system enables seamless question answering over `.txt`, `.pdf`, `.md`, and even image files (`.png`, `.jpg`) — with memory-aware, context-rich responses.
+A powerful and extensible Conversational AI assistant for querying and summarizing your documents. Built using LangChain, OpenAI's GPT-4o, and Streamlit, this system enables seamless question answering over `.txt`, `.pdf`, `.md`, and even image files (`.png`, `.jpg`) — with memory-aware, context-rich responses.
 
 ---
 
